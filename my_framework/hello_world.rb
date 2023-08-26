@@ -21,9 +21,7 @@ class HelloWorld
   def call(env)
     case env['REQUEST_PATH']
     when '/'
-      ['200', 
-        {'Content-Type' => 'text/html'}, 
-        ["<html><body><h2>Hello World!</h2></body></html>"]]
+      ['200', {'Content-Type' => 'text/html'}, [erb[:index]]]
     when '/advice'
       piece_of_advice = Advice.new.generate
       ['200', 
@@ -36,6 +34,14 @@ class HelloWorld
         ["<html><body><h4>404 Not Found</h4></body></html>"]
       ]
     end
+  end
+
+  private
+
+  def erb(filename, local = {})
+    b = binding
+    template = File.read("views/index.erb")
+    ERB.new(template).result
   end
 end
 
