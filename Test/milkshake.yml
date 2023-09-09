@@ -1,0 +1,10 @@
+---
+:title: Milkshake
+:ingredients:
+- :item_name: Milk
+  :quantity: 1
+  :unit_of_measurement: liter
+- :item_name: chocolate
+  :quantity: 1
+  :unit_of_measurement: gram
+:directions: Make Chocolate Milkshake

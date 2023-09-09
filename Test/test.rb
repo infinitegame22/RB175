@@ -1,18 +1,3 @@
-get '/users' do
-  erb :index
-end
-
-get '/users/:name' do
-  @user = User.all.find { |user| user.name == params[:name] }
-  erb :user
-end
-
-helpers do 
-  def count_interests
-    User.all.map { |user| user.interests.split(', ').count }.sum
-  end
-end
-
 class User
   attr_accessor :name, :email, :interests
 
@@ -28,6 +13,6 @@ class User
       User.new(name, data[:email], data[:interests].join(', '))
     end
   end
-
-  # Define any helper methods you need here
 end
+
+p User.new("Jamy", "jamy@gmail.com", ["running", "golf"]).all

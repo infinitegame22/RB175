@@ -6,4 +6,7 @@ gem "erubis"
 gem "webrick"
 gem "pry"
 
+group :development, :test do
+  gem "rerun"
+end
 ruby "3.2.2"
