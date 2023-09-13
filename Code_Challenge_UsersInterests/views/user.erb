@@ -1,11 +1,15 @@
-<h1><%= @user.name %></h1>
-<p>Email: <%= @user.email %></p>
-<p>Interests: <%= user.interests %></p>
-<p> Other Users:</p>
+<h2>Details for <%= @user %>:</h2>
+
+<h4>Email: </h4>
+<p><%= @email %></p>
+
+<h4>Interests: </h4>
+<p><%= @interests.join(", ") %></p>
+
 <ul>
-  <% User.all.each do |user| %>
-    <% unless user == @user %>
-      <li><a href="/users/<%= user.name %>"><%= user.name%></a></li>
+  <% @users.each do |user, _| %>
+    <% unless user == @user_name %>
+      <li><a href="<%= user %>"><%= user %></a></li>
     <% end %>
   <% end %>
 </ul>

@@ -1,33 +1,33 @@
-get '/users' do
-  erb :index
-end
+require "yaml"
 
-get '/users/:name' do
-  @user = User.all.find { |user| user.name == params[:name] }
-  erb :user
+require 'sinatra'
+require 'sinatra/reloader'
+require 'tilt/erubis'
+
+before do
+  @users = YAML.load_file("users.yaml")
 end
 
 helpers do 
-  def count_interests
-    User.all.map { |user| user.interests.split(', ').count }.sum
+  def count_interests(users)
+    users.reduce(0) do | sum, (name, user) |
+      sum + user[:interests].size
+    end
   end
 end
 
-class User
-  attr_accessor :name, :email, :interests
+get "/" do
+  redirect "/users"
+end
 
-  def initialize(name, email, interests)
-    @name = name
-    @email = email
-    @interests = interests
-  end
+get "/users" do
+  erb :users
+end
 
-  def self.all
-    users_data = YAML.load_file('users.yaml')
-    users_data.map do |name, data|
-      User.new(name, data[:email], data[:interests].join(', '))
-    end
-  end
-
-  # Define any helper methods you need here
+get "/:user_name" do
+  @user_name = params[:user_name].to_sym
+  @email = @users[@user_name][:email]
+  @interests = @users[@user_name][:interests]
+  
+  erb :user
 end
